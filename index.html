@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Find Smallest Count</title>
+    <style>
+        h1{
+            font-size: large;
+        }
+        p{
+            font-style: italic;
+            font-size: 16px;
+        }
+        body{
+            background-color: aquamarine;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Box of balls</h2>
+    <h4>Add different count of balls in different colors by your choice:</h1>
+    <p>
+    <label>
+        Color: <input type="text" id="input-of-color">
+    </label>
+</p>
+    <p>
+    <label>
+        Count: <input type="number" id="input-of-count" min="1">
+    </label>
+</p>
+    <button id="add">Add</button>
+    <button id="button-to-end">End</button>
+    <div id="result"></div>
+
+    <script>
+        let counts = {};
+
+        document.getElementById("add").addEventListener("click", function () {
+            let color = document.getElementById("input-of-color").value;
+            let count = parseInt(document.getElementById("input-of-count").value);
+            if (color && count) {
+                if (counts[color]) {
+                    counts[color] += count;
+                } else {
+                    counts[color] = count;
+                }
+                document.getElementById("input-of-color").value = "";
+                document.getElementById("input-of-count").value = "";
+            }
+        });
+
+        document.getElementById("button-to-end").addEventListener("click", function () {
+            let maxCount = 0;
+            for (let color in counts) {
+                if (counts[color] > maxCount) {
+                    maxCount = counts[color];
+                }
+            }
+
+            let totalRemoved = 0;
+            for (let color in counts) {
+                if (counts[color] !== maxCount) {
+                    totalRemoved += counts[color];
+                }
+            }
+
+            document.getElementById("result").textContent = `Smallest count to remove: ${totalRemoved}`;
+        });
+
+    </script>
+</body>
+
+</html>
